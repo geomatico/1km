@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "build": "webpack --config webpack.config.js",
+    "gh-pages": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,8 @@
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
+    "fileloader": "^2.0.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.0.3",
     "style-loader": "^1.1.3",
     "webpack": "^4.42.1",
