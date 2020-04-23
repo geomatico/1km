@@ -20,17 +20,6 @@ const geolocationControl = new mapboxgl.GeolocateControl({
     showUserLocation: false
 })
 
-map.addControl(geolocationControl);
-
-geolocationControl.on('geolocate', function(position) {
-    createBuffer({
-        lngLat: {
-            lng: position.coords.longitude,
-            lat: position.coords.latitude
-        }
-    });
-})
-
 const createBuffer = function(e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
     const radius = 1;
@@ -46,7 +35,6 @@ const createBuffer = function(e) {
     
     map.fitBounds(bounds, {padding: 25});
 }
-
 
 map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
@@ -98,5 +86,17 @@ map.on('load', function(e) {
         document.getElementById('openSidebarMenu').checked = false;
         createBuffer(e)
     });
+
+    map.addControl(geolocationControl);
+
+    geolocationControl.on('geolocate', function(position) {
+        document.getElementById('openSidebarMenu').checked = false;
+        createBuffer({
+            lngLat: {
+                lng: position.coords.longitude,
+                lat: position.coords.latitude
+            }
+        });
+    })
 })
 
