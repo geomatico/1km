@@ -50,9 +50,6 @@ map.on('load', function () {
     });
 });
 
-map.on('click', function(e) {
-    document.getElementById('openSidebarMenu').checked = false;
-});
 
 map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
@@ -61,19 +58,24 @@ map.on('drag', function(e) {
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
-map.on('click', function f(e) {
+map.on('load', function(e) {
+    map.on('click', function f(e) {
 
-    const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
-    const radius = 1;
-    const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
-    const circle = turfCircle(center, radius, options);
+        document.getElementById('openSidebarMenu').checked = false;
+    
+        const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
+        const radius = 1;
+        const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
+        const circle = turfCircle(center, radius, options);
+    
+        map.getSource('buffer_center').setData(center);
+        map.getSource('buffer').setData(circle);
+    
+        const bounds = circle.geometry.coordinates[0].reduce(function (bounds, coord) {
+            return bounds.extend(coord);
+        }, new mapboxgl.LngLatBounds());
+    
+        map.fitBounds(bounds, {padding: 25});
+    });
+})
 
-    map.getSource('buffer_center').setData(center);
-    map.getSource('buffer').setData(circle);
-
-    const bounds = circle.geometry.coordinates[0].reduce(function (bounds, coord) {
-        return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds());
-
-    map.fitBounds(bounds, {padding: 25});
-});
