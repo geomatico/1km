@@ -3,7 +3,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import turfCircle from '@turf/circle';
 import {point as turfPoint} from '@turf/helpers'
 
-/* var map = new mapboxgl.Map({
+var map = new mapboxgl.Map({
     container: 'map',
     style: 'http://demo.geomati.co:8090/styles/klokantech-basic/style.json',
     center: [-3.69, 40.41],
@@ -51,7 +51,7 @@ map.on('load', function () {
 });
 
 map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'})); */
+map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('click', function f(e) {
 

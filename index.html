@@ -4,128 +4,183 @@
     <meta charset="utf-8"/>
     <title>¿Cuánto es 1km?</title>
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-*, *::before, *::after { box-sizing: border-box; }
-
-body {
-  font-family: 'Merriweather Sans', sans-serif;
-  color: #323232;
-  overflow-x:hidden;
-  height: 100%;
-  margin: 0;
-}
-
-ul { list-style: none; margin: 0; padding: 0; }
-a { color: #323232; text-decoration: none; }
-
-// Variables 
-
-$transition: .3s;
-$side-menu-width: 260px;
-
-
-// Default state styles (menu is hidden)
-
-.page-wrapper {
-  position: relative;
-  transition: $transition;
-  padding: 10px 25px;
-}
-
-.menu-toggle {
-  /* NS */
-}
-
-.side-menu {
-  color: white;
-  background-color: #333;
-  padding: 15px 25px;
-  overflow-y: auto; // scroll shows when needed
-
-  // positions the menu on reveal
-  position: absolute;
-  top: 0;
-  left: 0;
-  
-  height: 100%;
-  width: $side-menu-width;
-  
-  
-  transform: translate3d(-100%, 0, 0); // hides menu
-  transition: $transition;
-  
-  .item {
-    display: block;
-    color: #fff;
-    padding: 15px;
-    border-bottom: 1px solid rgba(#fff, .15);
-    transition: $transition;
-  
-    &:hover {
-      background-color: white;
-      color: #333;
-    }
-  }
-}
-
-
-// Show state styles (menu is showing)
-.menu-active {  
-  .page-wrapper {
-    // moves page to right
-    transform: translate3d($side-menu-width, 0, 0);
-  }
-  
-  .side-menu {
-    // moves menu to right, revealing it
-    transform: translate3d(0,0,0);
-  }  
-}
+        @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+        html, body {
+            overflow-x: hidden;
+            height: 100%;
+        }
+        body {
+            background: #fff;
+            padding: 0;
+            margin: 0;
+            font-family: 'Varela Round', sans-serif;
+        }
+        #map {
+            position: absolute;
+            top: 60px;
+            bottom: 0;
+            width: 100%;
+        }
+        .header {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: none;
+            background-color: #FC466B;
+            position: fixed;
+            height: 60px!important;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .main {
+            margin: 0 auto;
+            display: block;
+            height: 100%;
+            margin-top: 60px;
+        }
+        .mainInner{
+            display: table;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+        }
+        .mainInner div{
+            display:table-cell;
+            vertical-align: middle;
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 1.25px;
+        }
+        #sidebarMenu {
+            height: 100%;
+            position: fixed;
+            left: 0;
+            width: 250px;
+            margin-top: 60px;
+            transform: translateX(-250px);
+            transition: transform 250ms ease-in-out;
+            background: linear-gradient(180deg, #FC466B 0%, #3F5EFB 100%);
+            z-index: 1000;
+        }
+        .sidebarMenuInner{
+            margin:0;
+            padding:0;
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
+        }
+        .sidebarMenuInner li{
+            list-style: none;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 20px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        }
+        .sidebarMenuInner li span{
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.50);
+        }
+        .sidebarMenuInner li a{
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        input[type="checkbox"]:checked ~ #sidebarMenu {
+            transform: translateX(0);
+        }
+        
+        input[type=checkbox] {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            display: none;
+        }
+        .sidebarIconToggle {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            cursor: pointer;
+            position: absolute;
+            z-index: 99;
+            height: 100%;
+            width: 100%;
+            top: 22px;
+            left: 15px;
+            height: 22px;
+            width: 22px;
+        }
+        .spinner {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+        }
+        .horizontal {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            position: relative;
+            float: left;
+            margin-top: 3px;
+        }
+        .diagonal.part-1 {
+            position: relative;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            float: left;
+        }
+        .diagonal.part-2 {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            position: relative;
+            float: left;
+            margin-top: 3px;
+        }
+        input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            opacity: 0;
+        }
+        input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            transform: rotate(135deg);
+            margin-top: 8px;
+        }
+        input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+            transition: all 0.3s;
+            box-sizing: border-box;
+            transform: rotate(-135deg);
+            margin-top: -9px;
+        }
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-        <header class="main-header">
-          <h1 class="title">Page Name</h1>
-          <a href="#" class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
-        </header>
-      </div>
-
-      <!-- Side Menu -->
-<nav class="side-menu">
-    <ul>
-      <li><a class="item" href="#">Home</a></li>
-      <li><a class="item" href="#">Store</a></li>
-      <li><a class="item" href="#">Blog</a></li>
-      <li><a class="item" href="#">Get in touch</a></li>
-      <li><a class="item" href="#">About us</a></li>
-    </ul>
-  </nav>
-
-  <div class="page-wrapper">
-    <section>
-      <p>Website main content goes here.</p>
-      <p>A Little bit jaggy, eh? Even using translate3d this appears jittery. A better approach for a smoother motion seems to be to translate the main content OR the menu.</p>
-      <p>Keeping the transition time under .2s helps as well. At least for the eyes.</p>
-    </section>
-  </div>
-      
-<div id="map"></div>
-<script>// Yes, it's this simple.
-
-    var slidingMenu = function() {
-      var menuToggle = document.querySelector('.menu-toggle');
-      var body       = document.body;
-    
-      menuToggle.addEventListener('click', function(ev) {
-        ev.preventDefault();
-        body.classList.toggle('menu-active');
-      });
-    }
-    
-    slidingMenu();
-    </script>
+    <div class="header"></div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>Jelena Jovanovic <span>Web Developer</span></li>
+            <li><a href="https://vanila.io" target="_blank">Company</a></li>
+            <li><a href="https://instagram.com/plavookac" target="_blank">Instagram</a></li>
+            <li><a href="https://twitter.com/plavookac" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/channel/UCDfZM0IK6RBgud8HYGFXAJg" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/in/plavookac/" target="_blank">Linkedin</a></li>
+        </ul>
+    </div>
+    <div id='center' class="main center">
+        <div id="map"></div>
+    </div>
 </body>
 </html>
