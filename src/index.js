@@ -50,6 +50,14 @@ map.on('load', function () {
     });
 });
 
+map.on('click', function(e) {
+    document.getElementById('openSidebarMenu').checked = false;
+});
+
+map.on('drag', function(e) {
+    document.getElementById('openSidebarMenu').checked = false;
+});
+
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
@@ -69,6 +77,3 @@ map.on('click', function f(e) {
 
     map.fitBounds(bounds, {padding: 25});
 });
-
-
-
