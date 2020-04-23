@@ -20,7 +20,6 @@ module.exports = {
         filename: '[name].[contenthash].js',
     },
     plugins: [
-        new Dotenv(),
         new HtmlWebpackPlugin({
             template: './index.html'
         })
