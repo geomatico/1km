@@ -4,7 +4,7 @@ import turfCircle from '@turf/circle';
 import {point as turfPoint} from '@turf/helpers'
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWljaG9nYXIiLCJhIjoiY2puN2JyYXoyMDJpajN3cDY2aW9uaW1hZyJ9.UR1LiAaqQAB8233md6xhgQ'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWQyYnZnMzA0Y2gzZnBsajkzdTV1eW0ifQ.Sdirap8fgylWmhv6iBxUOA'
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
