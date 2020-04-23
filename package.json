@@ -1,0 +1,35 @@
+{
+  "name": "tmb-liveplayer",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TMB-Barcelona/TMB-LivePlayer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TMB-Barcelona/TMB-LivePlayer/issues"
+  },
+  "homepage": "https://github.com/TMB-Barcelona/TMB-LivePlayer#readme",
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^1.7.0",
+    "html-webpack-plugin": "^4.0.3",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "@mapbox/spritezero": "^6.2.0",
+    "mapbox-gl": "^1.9.1",
+    "proj4": "^2.6.1"
+  }
+}
