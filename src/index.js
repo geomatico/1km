@@ -13,7 +13,50 @@ var map = new mapboxgl.Map({
     bearing: 0
 });
 
-map.on('load', function () {
+const geolocationControl = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    showUserLocation: false
+})
+
+map.addControl(geolocationControl);
+
+geolocationControl.on('geolocate', function(position) {
+    createBuffer({
+        lngLat: {
+            lng: position.coords.longitude,
+            lat: position.coords.latitude
+        }
+    });
+})
+
+const createBuffer = function(e) {
+    const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
+    const radius = 1;
+    const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
+    const circle = turfCircle(center, radius, options);
+    
+    map.getSource('buffer_center').setData(center);
+    map.getSource('buffer').setData(circle);
+    
+    const bounds = circle.geometry.coordinates[0].reduce(function (bounds, coord) {
+        return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds());
+    
+    map.fitBounds(bounds, {padding: 25});
+}
+
+
+map.on('drag', function(e) {
+    document.getElementById('openSidebarMenu').checked = false;
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
+
+map.on('load', function(e) {
+    
     map.addSource('buffer', {
         type: 'geojson',
         data: {
@@ -28,7 +71,7 @@ map.on('load', function () {
             features: []
         }
     });
-
+    
     map.addLayer({
         'id': 'buffer',
         'type': 'fill',
@@ -38,7 +81,7 @@ map.on('load', function () {
             'fill-opacity': 0.3
         }
     });
-
+    
     map.addLayer({
         'id': 'buffer_center',
         'type': 'circle',
@@ -50,34 +93,10 @@ map.on('load', function () {
             'circle-stroke-width': 2
         }
     });
-});
-
-
-map.on('drag', function(e) {
-    document.getElementById('openSidebarMenu').checked = false;
-});
-
-map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
-
-map.on('load', function(e) {
+    
     map.on('click', function f(e) {
-
         document.getElementById('openSidebarMenu').checked = false;
-    
-        const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
-        const radius = 1;
-        const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
-        const circle = turfCircle(center, radius, options);
-    
-        map.getSource('buffer_center').setData(center);
-        map.getSource('buffer').setData(circle);
-    
-        const bounds = circle.geometry.coordinates[0].reduce(function (bounds, coord) {
-            return bounds.extend(coord);
-        }, new mapboxgl.LngLatBounds());
-    
-        map.fitBounds(bounds, {padding: 25});
+        createBuffer(e)
     });
 })
 
