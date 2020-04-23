@@ -95,7 +95,7 @@
         input[type="checkbox"]:checked ~ #sidebarMenu {
             transform: translateX(0);
         }
-        
+
         input[type=checkbox] {
             transition: all 0.3s;
             box-sizing: border-box;
@@ -159,6 +159,10 @@
             transform: rotate(-135deg);
             margin-top: -9px;
         }
+        .desc {
+          color: white;
+          padding: 30px;
+        }
     </style>
 </head>
 <body>
@@ -171,9 +175,9 @@
     </label>
     <div id="sidebarMenu">
         <ul class="sidebarMenuInner">
-            <li><a href="https://geomati.co" target="_blank">geomati.co <span>Your GIS Company</span></a></li>
+            <li><img src='img/logo.png'><a href="https://geomati.co" target="_blank">geomatico <span>GIS Open Source</span></a></li>
         </ul>
-        <div>La aplicación 1km te permite calcular de manera fácil hasta dónde puedes andar con tus hijos durante la fase de desconfinamiento por la crisis del COVID-19. 
+        <div class="desc">La aplicación 1km te permite calcular de manera fácil hasta dónde puedes andar con tus hijos durante la fase de desconfinamiento por la crisis del COVID-19.
             Haz clic sobre el mapa y visualiza hasta dónde puedes andar. La aplicación 1km ha sido desarrollada por geomatico.</div>
     </div>
     <div id='center' class="main center">
