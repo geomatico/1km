@@ -3,9 +3,11 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import turfCircle from '@turf/circle';
 import {point as turfPoint} from '@turf/helpers'
 
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibWljaG9nYXIiLCJhIjoiY2puN2JyYXoyMDJpajN3cDY2aW9uaW1hZyJ9.UR1LiAaqQAB8233md6xhgQ'
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'http://demo.geomati.co:8090/styles/klokantech-basic/style.json',
+    style: 'mapbox://styles/mapbox/streets-v11',
     center: [-3.69, 40.41],
     zoom: 6,
     bearing: 0
