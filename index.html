@@ -5,20 +5,124 @@
     <title>¿Cuánto es 1 Km?</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
+        
         #map {
             position: absolute;
             top: 0;
             bottom: 0;
             width: 100%;
         }
+        *, *::before, *::after { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Merriweather Sans', sans-serif;
+            color: #323232;
+            overflow-x:hidden;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul { list-style: none; margin: 0; padding: 0; }
+        a { color: #323232; text-decoration: none; }
+        
+        $transition: .3s;
+        $side-menu-width: 260px;
+        
+        
+        // Default state styles (menu is hidden)
+        
+        .page-wrapper {
+            position: relative;
+            transition: $transition;
+            padding: 10px 25px;
+        }
+        
+        .menu-toggle {
+            /* NS */
+        }
+        
+        .side-menu {
+            color: white;
+            background-color: #333;
+            padding: 15px 25px;
+            overflow-y: auto; 
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            
+            height: 100%;
+            width: $side-menu-width;
+            
+            
+            transform: translate3d(-100%, 0, 0);
+            transition: $transition;
+            
+            .item {
+                display: block;
+                color: #fff;
+                padding: 15px;
+                border-bottom: 1px solid rgba(#fff, .15);
+                transition: $transition;
+                
+                &:hover {
+                    background-color: white;
+                    color: #333;
+                }
+            }
+        }
+        
+        .menu-active {  
+            .page-wrapper {
+                // moves page to right
+                transform: translate3d($side-menu-width, 0, 0);
+            }
+            
+            .side-menu {
+                // moves menu to right, revealing it
+                transform: translate3d(0,0,0);
+            }  
+        }
     </style>
 </head>
 <body>
-<div id="map"></div>
+    <div class="page-wrapper">
+        <header class="main-header">
+            <h1 class="title">Page Name</h1>
+            <a href="#" class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        </header>
+    </div>
+    <!-- Side Menu -->
+    <nav class="side-menu">
+        <ul>
+            <li><a class="item" href="#">Home</a></li>
+            <li><a class="item" href="#">Store</a></li>
+            <li><a class="item" href="#">Blog</a></li>
+            <li><a class="item" href="#">Get in touch</a></li>
+            <li><a class="item" href="#">About us</a></li>
+        </ul>
+    </nav>
+    
+    <div class="page-wrapper">
+        <section>
+           
+        </section>
+    </div>      
+    <script>
+        // Yes, it's this simple.
+        
+        var slidingMenu = function() {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var body       = document.body;
+            
+            menuToggle.addEventListener('click', function(ev) {
+                ev.preventDefault();
+                body.classList.toggle('menu-active');
+            });
+        }
+        
+        slidingMenu();
+    </script>
 </body>
 </html>
