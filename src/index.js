@@ -3,6 +3,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import turfCircle from '@turf/circle'
 import {point as turfPoint} from '@turf/helpers'
 import HelpControl from './help-control'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWQyYnZnMzA0Y2gzZnBsajkzdTV1eW0ifQ.Sdirap8fgylWmhv6iBxUOA'
 var map = new mapboxgl.Map({
@@ -40,9 +42,29 @@ map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
 });
 
-map.addControl(new HelpControl());
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        placeholder: 'Busca tu casa...',
+        zoom: 14,
+        marker: false
+    })
+);
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
+map.addControl(new HelpControl({position: 'bottom-left'}));
+map.addControl(geolocationControl);
+
+geolocationControl.on('geolocate', function(position) {
+    document.getElementById('welcome').style.display='none'
+    createBuffer({
+        lngLat: {
+            lng: position.coords.longitude,
+            lat: position.coords.latitude
+        }
+    });
+})
 
 map.on('load', function(e) {
     
@@ -88,15 +110,4 @@ map.on('load', function(e) {
         createBuffer(e)
     });
 
-    map.addControl(geolocationControl);
-
-    geolocationControl.on('geolocate', function(position) {
-        document.getElementById('welcome').style.display='none'
-        createBuffer({
-            lngLat: {
-                lng: position.coords.longitude,
-                lat: position.coords.latitude
-            }
-        });
-    })
 })
