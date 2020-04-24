@@ -26,14 +26,14 @@ const createBuffer = function(e) {
     const radius = 1;
     const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
     const circle = turfCircle(center, radius, options);
-    
+
     map.getSource('buffer_center').setData(center);
     map.getSource('buffer').setData(circle);
-    
+
     const bounds = circle.geometry.coordinates[0].reduce(function (bounds, coord) {
         return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds());
-    
+
     map.fitBounds(bounds, {padding: 25});
 }
 
@@ -47,14 +47,16 @@ map.addControl(
         mapboxgl: mapboxgl,
         placeholder: 'Busca tu casa...',
         zoom: 14,
-        marker: false
+        marker: false,
+        language: 'es-ES',
+        countries: 'es'
     })
 );
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('load', function(e) {
-    
+
     map.addSource('buffer', {
         type: 'geojson',
         data: {
@@ -69,7 +71,7 @@ map.on('load', function(e) {
             features: []
         }
     });
-    
+
     map.addLayer({
         'id': 'buffer',
         'type': 'fill',
@@ -79,7 +81,7 @@ map.on('load', function(e) {
             'fill-opacity': 0.3
         }
     });
-    
+
     map.addLayer({
         'id': 'buffer_center',
         'type': 'circle',
@@ -91,7 +93,7 @@ map.on('load', function(e) {
             'circle-stroke-width': 2
         }
     });
-    
+
     map.on('click', function f(e) {
         document.getElementById('openSidebarMenu').checked = false;
         createBuffer(e)
@@ -109,4 +111,3 @@ map.on('load', function(e) {
         });
     })
 })
-
