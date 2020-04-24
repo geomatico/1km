@@ -43,7 +43,9 @@ map.addControl(
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         placeholder: 'Busca tu casa...',
-        zoom: 14
+        zoom: 14,
+        language: 'es-ES',
+        countries: 'es'
     })
 );
 map.addControl(new mapboxgl.NavigationControl());
