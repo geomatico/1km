@@ -1,5 +1,5 @@
 {
-  "name": "tmb-liveplayer",
+  "name": "geomatico-1km-covid19",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TMB-Barcelona/TMB-LivePlayer.git"
+    "url": "git+https://github.com/geomatico/1km.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TMB-Barcelona/TMB-LivePlayer/issues"
+    "url": "https://github.com/geomatico/1km/issues"
   },
-  "homepage": "https://github.com/TMB-Barcelona/TMB-LivePlayer#readme",
+  "homepage": "https://github.com/geomatico/1km#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
