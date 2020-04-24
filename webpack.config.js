@@ -1,5 +1,7 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -20,9 +22,14 @@ module.exports = {
         filename: '[name].[contenthash].js',
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './index.html'
-        })
+        }),
+        new CopyPlugin([
+            { from: 'img', to: 'img/' },
+            { from: 'CNAME', to: 'CNAME', toType: 'file'},
+          ]),
     ],
     module: {
         rules: [

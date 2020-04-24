@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/TMB-Barcelona/TMB-LivePlayer#readme",
   "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
