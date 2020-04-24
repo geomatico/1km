@@ -34,6 +34,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@mapbox/spritezero": "^6.2.0",
     "@turf/circle": "^6.0.1",
     "mapbox-gl": "^1.9.1",
