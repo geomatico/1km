@@ -8,6 +8,8 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWQyYnZnMzA0Y2gzZnBsajkzdTV1eW0ifQ.Sdirap8fgylWmhv6iBxUOA'
 var map = new mapboxgl.Map({
     container: 'map',
+    //style: 'mapbox://styles/mapbox/streets-v11',
+    //style: 'https://geoserveis.icgc.cat/contextmaps/osm-bright.json',
     style: 'img/osm-bright-icgc-cloudfront.json',
     center: [-3.69, 40.41],
     zoom: 6,
