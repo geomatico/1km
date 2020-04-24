@@ -43,7 +43,7 @@ map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
 });
 
-map.addControl(
+/*map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
@@ -54,7 +54,7 @@ map.addControl(
         countries: 'es',
         minLength: 3
     })
-);
+);*/
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
