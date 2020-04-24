@@ -38,17 +38,12 @@ const createBuffer = function(e) {
     map.fitBounds(bounds, {padding: 25});
 }
 
-map.on('drag', function(e) {
-    document.getElementById('openSidebarMenu').checked = false;
-});
-
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         placeholder: 'Busca tu casa...',
-        zoom: 14,
-        marker: false
+        zoom: 14
     })
 );
 map.addControl(new mapboxgl.NavigationControl());
