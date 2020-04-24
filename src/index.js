@@ -49,7 +49,8 @@ map.addControl(
         zoom: 14,
         marker: false,
         language: 'es-ES',
-        countries: 'es'
+        countries: 'es',
+        minLength: 3
     })
 );
 map.addControl(new mapboxgl.NavigationControl());
