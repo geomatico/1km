@@ -21,51 +21,9 @@
         }
         #map {
             position: absolute;
-            top: 60px;
+            top: 0;
             bottom: 0;
             width: 100%;
-        }
-        .header {
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            max-width: 100%;
-            box-shadow: none;
-            background-color: #973572;
-            position: fixed;
-            height: 60px!important;
-            overflow: hidden;
-            z-index: 10;
-        }
-        .main {
-            margin: 0 auto;
-            display: block;
-            height: 100%;
-            margin-top: 60px;
-        }
-        .mainInner{
-            display: table;
-            height: 100%;
-            width: 100%;
-            text-align: center;
-        }
-        .mainInner div{
-            display:table-cell;
-            vertical-align: middle;
-            font-size: 3em;
-            font-weight: bold;
-            letter-spacing: 1.25px;
-        }
-        #sidebarMenu {
-            height: 100%;
-            position: fixed;
-            left: 0px;
-            width: 350px;
-            margin-top: 60px;
-            transform: translateX(-350px);
-            transition: transform 250ms ease-in-out;
-            background-color: #973572;
-            z-index: 1000;
         }
         .sidebarMenuInner{
             margin:0;
@@ -93,107 +51,74 @@
             cursor: pointer;
             text-decoration: none;
         }
-        input[type="checkbox"]:checked ~ #sidebarMenu {
-            transform: translateX(0);
-        }
-
-        input[type=checkbox] {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            display: none;
-        }
-        .sidebarIconToggle {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            cursor: pointer;
-            position: absolute;
-            z-index: 99;
-            height: 100%;
-            width: 100%;
-            top: 22px;
-            left: 15px;
-            height: 22px;
-            width: 22px;
-        }
-        .spinner {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background-color: #fff;
-        }
-        .horizontal {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            position: relative;
-            float: left;
-            margin-top: 3px;
-        }
-        .diagonal.part-1 {
-            position: relative;
-            transition: all 0.3s;
-            box-sizing: border-box;
-            float: left;
-        }
-        .diagonal.part-2 {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            position: relative;
-            float: left;
-            margin-top: 3px;
-        }
-        input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            opacity: 0;
-        }
-        input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            transform: rotate(135deg);
-            margin-top: 8px;
-        }
-        input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
-            transition: all 0.3s;
-            box-sizing: border-box;
-            transform: rotate(-135deg);
-            margin-top: -9px;
-        }
         .desc {
             color: white;
-            padding: 30px;
+            padding: 20px;
             text-align: justify;
             text-justify: inter-word;
         }
         .logo {
-            text-align: center;
             height: 80px;
-            bottom: 70px;
-            position: absolute;
-            margin-left: 40%;
+            display:block;
+            margin:auto;
+        }
+        .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+        .modal-content {
+            max-width: 500px;
+            margin: 10px;
+            text-align: justify;
+            background-color: #973572;
+            color: #fff;
+            z-index: 3;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .dismiss {
+            display:block;
+            margin-right: 0;
+            margin-left:auto;
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border-radius: 0px;
+            background-color: #5E063D;
+            border-radius: 6px;
+            padding: 8px 15px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="header"></div>
-    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" checked>
-    <label for="openSidebarMenu" class="sidebarIconToggle">
-        <div class="spinner diagonal part-1"></div>
-        <div class="spinner horizontal"></div>
-        <div class="spinner diagonal part-2"></div>
-    </label>
-    <div id="sidebarMenu">
-        <ul class="sidebarMenuInner">
-            <li>¿Cuánto es 1km?<span>Haz clic sobre el mapa</span></a></li>
-        </ul>
-        <div class="desc">La aplicación 1km te permite calcular de manera fácil hasta dónde puedes andar con tus hijos durante la fase de desconfinamiento por la crisis del COVID-19.
-            Haz clic sobre el mapa y visualiza hasta dónde puedes andar. La aplicación 1km ha sido desarrollada por geomatico.
+    <div id="map"></div>
+    <div id="welcome" class="modal">
+        <div class="modal-content sidebarMenuInner">
+            <li>¿CUÁNTO ES 1KM?
+                <span>Haz clic sobre el mapa</span>
+            </li>
+            <div class="desc">
+                <p>Haz clic sobre el mapa y visualiza hasta dónde puedes andar
+                con tus hijos durante la fase de desconfinamiento por la
+                crisis del COVID-19.</p>
+                <p>La aplicación <i>cuánto es 1km</i> ha sido desarrollada por geomatico.</p>
+                <div>
+                    <a href="http://geomatico.es" target="_blank">
+                        <img class="logo" src="img/logo.svg">
+                    </a>
+                </div>
+                <div>
+                    <button class="dismiss" onclick="document.getElementById('welcome').style.display='none'">Aceptar</button>
+                </div>
+            </div>
         </div>
-        <a href='http://geomatico.es' target='_blank'><img class='logo' src='img/logo.svg'></a>
-    </div>
-    <div id='center' class="main center">
-        <div id="map"></div>
     </div>
 </body>
 </html>
