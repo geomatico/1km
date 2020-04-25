@@ -67,15 +67,16 @@
             letter-spacing: 1.25px;
         }
         #sidebarMenu {
-            height: 100%;
             position: fixed;
-            left: 0px;
             width: 300px;
-            margin-top: 60px;
+            top: 60px;
+            bottom: 0;
+            left: 0;
             transform: translateX(-300px);
             transition: transform 250ms ease-in-out;
             background-color: #973572;
             z-index: 1000;
+            overflow: auto;
         }
         .sidebarMenuInner{
             margin:0;
@@ -174,15 +175,39 @@
             color: white;
             padding: 30px;
             text-align: justify;
-            text-justify: inter-word;
         }
         .logo {
-            text-align: center;
             height: 80px;
-            bottom: 70px;
-            position: absolute;
             margin-left: 40%;
+            margin-bottom: 30px;
         }
+        .dismiss {
+            font-family: 'Varela Round', sans-serif;
+            display: block;
+            margin-right: 0;
+            margin-left: auto;
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border-radius: 0px;
+            background-color: #5E063D;
+            border-radius: 6px;
+            padding: 8px 15px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background-color: #5E063D;
+        }
+
     </style>
 </head>
 <body>
@@ -200,7 +225,9 @@
         <div class="desc">Haz clic sobre el mapa y visualiza hasta dónde puedes andar con tus hijos durante la fase de desconfinamiento por la crisis del COVID-19.
           <p>La aplicación 1km ha sido desarrollada por geomatico.</p>
           <p class="cookie-notification">Navegando sobre el mapa asumimos que se <b>acepta el uso de cookies.</b></p>
+          <button class="dismiss" onclick="document.getElementById('openSidebarMenu').checked = false;">Aceptar</button>
         </div>
+
         <a href='http://geomatico.es' target='_blank'><img class='logo' src='img/logo.svg'></a>
     </div>
     <div id='center' class="main center">
