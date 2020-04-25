@@ -5,12 +5,12 @@ import {point as turfPoint} from '@turf/helpers'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWQyYnZnMzA0Y2gzZnBsajkzdTV1eW0ifQ.Sdirap8fgylWmhv6iBxUOA'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
     container: 'map',
-    //style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/streets-v11',
     //style: 'https://geoserveis.icgc.cat/contextmaps/osm-bright.json',
-    style: 'img/osm-bright-icgc-cloudfront.json',
+    //style: 'img/osm-bright-icgc-cloudfront.json',
     center: [-3.69, 40.41],
     zoom: 6,
     bearing: 0
