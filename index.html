@@ -185,8 +185,15 @@
         }
         .logo {
             height: 80px;
-            margin-left: 40%;
-            margin-bottom: 30px;
+            position: absolute;
+            left: 30px;
+
+        }
+        .logoMB {
+            width: 125px;
+            position: absolute;
+            right: 35px;
+            margin-top: 30px;
         }
         .dismiss {
             font-family: 'Varela Round', sans-serif;
@@ -254,7 +261,10 @@
           </div>
           <button class="dismiss" onclick="document.getElementById('openSidebarMenu').checked = false;">Aceptar</button>
         </div>
-        <a href='http://geomatico.es' target='_blank'><img class='logo' src='img/logo.svg'></a>
+        <div class='logos'>
+          <a href='http://geomatico.es' target='_blank'><img class='logo' src='img/logo.svg'></a>
+          <a href='http://www.mapbox.com' target='_blank'><img class='logoMB' src='img/mapbox_logo.png'></a>
+        </div>
     </div>
     <div id='center' class="main center">
         <div id="map"></div>
