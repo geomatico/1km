@@ -5,7 +5,7 @@ import {point as turfPoint} from '@turf/helpers'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWt5eGU2bjAzM2gzbHBkYm81bWY4amQifQ.BItaEVXjBH0eI2OrC9FGZQ'
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
@@ -59,6 +59,27 @@ map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('load', function(e) {
+
+    map.addSource('src_provincias', {
+        type: 'vector',
+        url: 'mapbox://geomatico.crai11dm'
+    });
+
+    map.addLayer({
+        'id': 'boundary_provincias',
+        'type': 'line',
+        'source': 'src_provincias',
+        'source-layer': 'provincias-9svptk',
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#888888',
+            'line-width': 2,
+            'line-opacity': 0.67
+        }
+    });
 
     map.addSource('buffer', {
         type: 'geojson',
