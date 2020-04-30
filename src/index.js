@@ -23,8 +23,6 @@ const geolocationControl = new mapboxgl.GeolocateControl({
     showUserLocation: false
 })
 
-let coords = undefined
-
 const createBuffer = function(e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
     const radius = 1;
@@ -38,14 +36,12 @@ const createBuffer = function(e) {
         return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds());
 
-    map.fitBounds(bounds, {padding: 25});
-
-    coords = e
+    map.fitBounds(bounds, {padding: 25}, e);
 }
-
-const showMunicipality = function() {
+/* 
+const showMunicipality = function(e) {
     const municipalities = map.queryRenderedFeatures(
-        coords.point,
+        e.point,
         { layers: ['fill_municipios'] });
     if (municipalities.length === 1) {
         const municipality = municipalities[0]
@@ -54,10 +50,10 @@ const showMunicipality = function() {
 }
 
 map.on('zoomend', e => {
-    if (!e.hasOwnProperty('originalEvent')) {
-        showMunicipality()
+    if (e.hasOwnProperty('point')) {
+        showMunicipality(e)
     }
-})
+}) */
 
 map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
@@ -109,8 +105,8 @@ map.on('load', function(e) {
             'line-cap': 'round'
         },
         'paint': {
-            'line-color': '#888888',
-            'line-width': 1,
+            'line-color': '#973572',
+            'line-width': 3,
             'line-opacity': 0.67
         }
     });    
