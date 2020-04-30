@@ -23,6 +23,8 @@ const geolocationControl = new mapboxgl.GeolocateControl({
     showUserLocation: false
 })
 
+let coords = undefined
+
 const createBuffer = function(e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
     const radius = 1;
@@ -37,7 +39,25 @@ const createBuffer = function(e) {
     }, new mapboxgl.LngLatBounds());
 
     map.fitBounds(bounds, {padding: 25});
+
+    coords = e
 }
+
+const showMunicipality = function() {
+    const municipalities = map.queryRenderedFeatures(
+        coords.point,
+        { layers: ['fill_municipios'] });
+    if (municipalities.length === 1) {
+        const municipality = municipalities[0]
+        map.setFilter('selected_municipality', ['==', 'NAMEUNIT', municipality.properties.NAMEUNIT])
+    }
+}
+
+map.on('zoomend', e => {
+    if (!e.hasOwnProperty('originalEvent')) {
+        showMunicipality()
+    }
+})
 
 map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
@@ -60,25 +80,56 @@ map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('load', function(e) {
 
-    map.addSource('src_provincias', {
+    map.addSource('src_municipios', {
         type: 'vector',
-        url: 'mapbox://geomatico.crai11dm'
+        url: 'mapbox://geomatico.bkiobfd2'
     });
 
     map.addLayer({
-        'id': 'boundary_provincias',
+        'id': 'fill_municipios',
+        'type': 'fill',
+        'source': 'src_municipios',
+        'source-layer': 'municipios-4nse5n',
+        'layout': {
+        },
+        'paint': {
+            'fill-outline-color': '#444',
+            'fill-color': '#888',
+            'fill-opacity': 0
+        }
+    });    
+    
+    map.addLayer({
+        'id': 'boundary_municipios',
         'type': 'line',
-        'source': 'src_provincias',
-        'source-layer': 'provincias-9svptk',
+        'source': 'src_municipios',
+        'source-layer': 'municipios-4nse5n',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'
         },
         'paint': {
             'line-color': '#888888',
-            'line-width': 2,
+            'line-width': 1,
             'line-opacity': 0.67
         }
+    });    
+    
+    map.addLayer({
+        'id': 'selected_municipality',
+        'type': 'line',
+        'source': 'src_municipios',
+        'source-layer': 'municipios-4nse5n',
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#973572',
+            'line-width': 4,
+            'line-opacity': 0.67
+        },
+        'filter': ['==', 'NAMEUNIT', '']
     });
 
     map.addSource('buffer', {
