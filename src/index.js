@@ -36,12 +36,13 @@ const createBuffer = function(e) {
         return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds());
 
-    map.fitBounds(bounds, {padding: 25}, e);
+    map.fitBounds(bounds, {padding: 25}, {lngLat: e.lngLat});
 }
-/* 
+
 const showMunicipality = function(e) {
+    const point = map.project(e.lngLat);
     const municipalities = map.queryRenderedFeatures(
-        e.point,
+        point,
         { layers: ['fill_municipios'] });
     if (municipalities.length === 1) {
         const municipality = municipalities[0]
@@ -50,10 +51,10 @@ const showMunicipality = function(e) {
 }
 
 map.on('zoomend', e => {
-    if (e.hasOwnProperty('point')) {
+    if (e.hasOwnProperty('lngLat')) {
         showMunicipality(e)
     }
-}) */
+});
 
 map.on('drag', function(e) {
     document.getElementById('openSidebarMenu').checked = false;
@@ -93,8 +94,8 @@ map.on('load', function(e) {
             'fill-color': '#888',
             'fill-opacity': 0
         }
-    });    
-    
+    });
+
     map.addLayer({
         'id': 'boundary_municipios',
         'type': 'line',
@@ -105,12 +106,12 @@ map.on('load', function(e) {
             'line-cap': 'round'
         },
         'paint': {
-            'line-color': '#973572',
-            'line-width': 3,
+            'line-color': '#444',
+            'line-width': 1,
             'line-opacity': 0.67
         }
-    });    
-    
+    });
+
     map.addLayer({
         'id': 'selected_municipality',
         'type': 'line',
@@ -168,6 +169,7 @@ map.on('load', function(e) {
     map.on('click', function f(e) {
         document.getElementById('openSidebarMenu').checked = false;
         createBuffer(e)
+        showMunicipality(e)
     });
 
     map.addControl(geolocationControl);
