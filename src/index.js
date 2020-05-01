@@ -13,7 +13,8 @@ var map = new mapboxgl.Map({
     //style: 'img/osm-bright-icgc-cloudfront.json',
     center: [-3.69, 40.41],
     zoom: 6,
-    bearing: 0
+    bearing: 0,
+    attributionControl: false
 });
 
 const geolocationControl = new mapboxgl.GeolocateControl({
@@ -74,6 +75,13 @@ map.addControl(
 );
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
+
+const attributionControl = new mapboxgl.AttributionControl({
+    compact: false,
+    customAttribution: 'BDLJE CC-BY 4.0 <a href="https://www.ign.es">ign.es</a>'
+})
+
+map.addControl(attributionControl)
 
 map.on('load', function(e) {
 
