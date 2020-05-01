@@ -350,18 +350,6 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-164546189-1');
-
-
-        var listItems = document.querySelectorAll('.mdc-bottom-navigation__list-item');
-        var activated = 'mdc-bottom-navigation__list-item--activated';
-        for (var i = 0, list; list = listItems[i]; i++) {
-            list.addEventListener('click', function(event) {
-                [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activated));
-                var el = event.target;
-                el.classList.add(activated);
-                console.log(el.dataset.id);
-            });
-        }
     </script>
 </body>
 </html>

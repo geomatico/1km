@@ -4,6 +4,7 @@ import turfCircle from '@turf/circle';
 import {point as turfPoint} from '@turf/helpers'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import mun_bbox from './mun_bbox';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
@@ -23,7 +24,10 @@ const geolocationControl = new mapboxgl.GeolocateControl({
     showUserLocation: false
 })
 
-const createBuffer = function(e) {
+let buffer_bounds = undefined;
+let current_municipality = undefined;
+
+const createBuffer = function (e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
     const radius = 1;
     const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
@@ -36,16 +40,21 @@ const createBuffer = function(e) {
         return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds());
 
+    buffer_bounds = bounds;
+
     map.fitBounds(bounds, {padding: 25}, {lngLat: e.lngLat});
 }
 
-const showMunicipality = function(e) {
+const showMunicipality = function (e) {
     const point = map.project(e.lngLat);
     const municipalities = map.queryRenderedFeatures(
         point,
-        { layers: ['fill_municipios'] });
+        {layers: ['fill_municipios']});
     if (municipalities.length === 1) {
-        const municipality = municipalities[0]
+        const municipality = municipalities[0];
+
+        current_municipality = municipality.properties['ine:municipio'];
+
         map.setFilter('selected_municipality', ['==', 'ine:municipio', municipality.properties['ine:municipio']])
     }
 }
@@ -56,7 +65,41 @@ map.on('zoomend', e => {
     }
 });
 
-map.on('drag', function(e) {
+const zoomTo = function (name) {
+    switch (name) {
+        case 'km':
+            map.fitBounds(buffer_bounds, {padding: 25});
+            break;
+        case 'municipio':
+            if (current_municipality) {
+                const mun = mun_bbox.filter(mun => mun['ine'] === current_municipality)[0];
+                const bounds = new mapboxgl.LngLatBounds(mun.bounds);
+                map.fitBounds(bounds, {padding: 25});
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+var listItems = document.querySelectorAll('.mdc-bottom-navigation__list-item');
+var activated = 'mdc-bottom-navigation__list-item--activated';
+for (var i = 0, list; list = listItems[i]; i++) {
+    list.addEventListener('click', function (event) {
+        [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activated));
+        var el = event.target;
+        el.classList.add(activated);
+        zoomTo(el.dataset.id);
+    });
+}
+
+const set1kmActivate = function() {
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activated));
+    var el = document.querySelector('span[data-id="km"]');
+    el.classList.add(activated);
+}
+
+map.on('drag', function (e) {
     document.getElementById('openSidebarMenu').checked = false;
 });
 
@@ -75,7 +118,7 @@ map.addControl(
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
-map.on('load', function(e) {
+map.on('load', function (e) {
 
     map.addSource('src_limites_adm', {
         type: 'vector',
@@ -87,8 +130,7 @@ map.on('load', function(e) {
         'type': 'fill',
         'source': 'src_limites_adm',
         'source-layer': 'municipios_osm',
-        'layout': {
-        },
+        'layout': {},
         'paint': {
             'fill-outline-color': '#444',
             'fill-color': '#888',
@@ -203,13 +245,14 @@ map.on('load', function(e) {
 
     map.on('click', function f(e) {
         document.getElementById('openSidebarMenu').checked = false;
-        createBuffer(e)
-        showMunicipality(e)
+        createBuffer(e);
+        showMunicipality(e);
+        set1kmActivate();
     });
 
     map.addControl(geolocationControl);
 
-    geolocationControl.on('geolocate', function(position) {
+    geolocationControl.on('geolocate', function (position) {
         document.getElementById('openSidebarMenu').checked = false;
         createBuffer({
             lngLat: {
