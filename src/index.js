@@ -1,3 +1,4 @@
+import i18n from '../i18n';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import turfCircle from '@turf/circle';
@@ -5,6 +6,8 @@ import {point as turfPoint} from '@turf/helpers'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import mun_bbox from './mun_bbox';
+
+console.log(i18n.t('accept'))
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
