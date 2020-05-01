@@ -107,7 +107,7 @@ map.on('load', function(e) {
             'fill-color': '#888',
             'fill-opacity': 0
         }
-    });
+    }, 'building-number-label');
 
     map.addLayer({
         'id': 'boundary_municipios',
@@ -119,11 +119,18 @@ map.on('load', function(e) {
             'line-cap': 'round'
         },
         'paint': {
-            'line-color': '#444',
+            'line-color': '#696969',
             'line-width': 0.5,
-            'line-opacity': 0.67
+            'line-opacity': [
+                'interpolate',
+                ['exponential', 0.5],
+                ['zoom'],
+                7, 0.1,
+                15, 0.5,
+                22, 0.7
+            ]
         }
-    });
+    }, 'building-number-label');
 
     map.addLayer({
         'id': 'boundary_provincias',
@@ -136,10 +143,22 @@ map.on('load', function(e) {
         },
         'paint': {
             'line-color': '#888888',
-            'line-width': 2.5,
-            'line-opacity': 0.67
+            'line-width': [
+                'interpolate',
+                ['exponential', 0.5],
+                ['zoom'],
+                7, 1.5,
+                18, 2.5
+            ],
+            'line-opacity': [
+                'interpolate',
+                ['exponential', 0.5],
+                ['zoom'],
+                7, 0.2,
+                18, 0.5
+            ]
         }
-    });
+    }, 'building-number-label');
 
     map.addLayer({
         'id': 'selected_municipality',
@@ -156,7 +175,7 @@ map.on('load', function(e) {
             'line-opacity': 0.67
         },
         'filter': ['==', 'NAMEUNIT', '']
-    });
+    }, 'building-number-label');
 
     map.addSource('buffer', {
         type: 'geojson',
