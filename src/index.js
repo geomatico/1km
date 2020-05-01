@@ -45,36 +45,40 @@ const createBuffer = function (e) {
     map.fitBounds(bounds, {padding: 25}, {lngLat: e.lngLat});
 }
 
-const showMunicipality = function (e) {
-    const point = map.project(e.lngLat);
+const showMunicipality = function (lngLat) {
+    const point = map.project(lngLat);
     const municipalities = map.queryRenderedFeatures(
         point,
         {layers: ['fill_municipios']});
     if (municipalities.length === 1) {
-        const municipality = municipalities[0];
-
-        current_municipality = municipality.properties['ine:municipio'];
-
-        map.setFilter('selected_municipality', ['==', 'ine:municipio', municipality.properties['ine:municipio']])
+        current_municipality = municipalities[0].properties['ine:municipio'];
+        map.setFilter('selected_municipality', ['==', 'ine:municipio', current_municipality])
     }
 }
 
 map.on('zoomend', e => {
     if (e.hasOwnProperty('lngLat')) {
-        showMunicipality(e)
+        map.once('idle', e2 => {
+            showMunicipality(e.lngLat)
+            showButtons()
+        })
     }
 });
 
-const zoomTo = function (name) {
-    switch (name) {
+const zoomTo = function (type) {
+    switch (type) {
         case 'km':
-            map.fitBounds(buffer_bounds, {padding: 25});
+            if(buffer_bounds) {
+                map.fitBounds(buffer_bounds, {padding: 25});
+                setActiveButton(type);
+            }
             break;
         case 'municipio':
             if (current_municipality) {
                 const mun = mun_bbox.filter(mun => mun['ine'] === current_municipality)[0];
                 const bounds = new mapboxgl.LngLatBounds(mun.bounds);
                 map.fitBounds(bounds, {padding: 25});
+                setActiveButton(type);
             }
             break;
         default:
@@ -83,24 +87,32 @@ const zoomTo = function (name) {
 }
 
 var listItems = document.querySelectorAll('.mdc-bottom-navigation__list-item');
-var activated = 'mdc-bottom-navigation__list-item--activated';
 for (var i = 0, list; list = listItems[i]; i++) {
     list.addEventListener('click', function (event) {
-        [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activated));
-        var el = event.target;
-        el.classList.add(activated);
-        zoomTo(el.dataset.id);
+        zoomTo(event.target.dataset.id);
     });
 }
 
-const set1kmActivate = function() {
-    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activated));
-    var el = document.querySelector('span[data-id="km"]');
-    el.classList.add(activated);
+const showButtons = function() {
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.style.opacity = '1');
+}
+
+const hideButtons = function() {
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.style.opacity = '0');
+}
+
+const setActiveButton = function(type) {
+    var activatedClass = 'mdc-bottom-navigation__list-item--activated';
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activatedClass));
+    if(type) {
+        var el = document.querySelector('span[data-id="'+type+'"]');
+        el.classList.add(activatedClass);
+    }
 }
 
 map.on('drag', function (e) {
     document.getElementById('openSidebarMenu').checked = false;
+    setActiveButton(undefined);
 });
 
 map.addControl(
@@ -245,9 +257,10 @@ map.on('load', function (e) {
 
     map.on('click', function f(e) {
         document.getElementById('openSidebarMenu').checked = false;
+        hideButtons();
+        current_municipality = undefined;
         createBuffer(e);
-        showMunicipality(e);
-        set1kmActivate();
+        setActiveButton("km");
     });
 
     map.addControl(geolocationControl);
