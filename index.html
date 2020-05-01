@@ -258,7 +258,7 @@
     <div class="header">
         <img class='logo-header' src='img/markers.svg'>
         <ul class="sidebarMenuInner">
-            <li>¿Cuánto es 1km?<span>Clica en el mapa sobre tu casa</span></a></li>
+            <li>¿Cuánto es 1km?<span data-i18n="subtitle">Clica en el mapa sobre tu casa</span></a></li>
         </ul>
     </div>
     <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" checked>
@@ -268,20 +268,20 @@
         <div class="spinner diagonal part-2"></div>
     </label>
     <div id="sidebarMenu">
-        <div class="desc">Haz clic sobre el mapa y visualiza hasta dónde puedes andar
-            durante la fase 0 de desconfinamiento por la crisis del COVID-19. 
+        <div class="desc" data-i18n="desc1">Haz clic sobre el mapa y visualiza hasta dónde puedes andar
+            durante la fase 0 de desconfinamiento por la crisis del COVID-19.
             También podrás ver los <b>límites municipales</b> cuando vayas a hacer deporte.
-          <p>La aplicación 1km ha sido desarrollada por <a href="http://geomatico.es" target="_blank">geomatico</a>.
+          <p data-i18n="desc2">La aplicación 1km ha sido desarrollada por <a href="http://geomatico.es" target="_blank">geomatico</a>.
             Cartografía y buscador gentileza de <a href="https://mapbox.com" target="_blank">Mapbox</a>.</p>
-          <p class="cookie-notification">No explotamos tu información personal,
+          <p data-i18n="desc3" class="cookie-notification">No explotamos tu información personal,
               tu posición no se transmite en ningún caso. Sólo usamos cookies técnicas.
               Es <a href="https://github.com/geomatico/1km" target="_blank">código libre</a>.</p>
           <div class="legal">
-            <a href="http://geomati.co/cookies_1km.html" target="_blank">política de cookies</a>
+            <a data-i18n="cookies" href="http://geomati.co/cookies_1km.html" target="_blank">política de cookies</a>
             <span> | </span>
-            <a href="http://geomati.co/privacidad_1km.html" target="_blank">política de privacidad</a>
+            <a data-i18n="private" href="http://geomati.co/privacidad_1km.html" target="_blank">política de privacidad</a>
           </div>
-          <button class="dismiss" onclick="document.getElementById('openSidebarMenu').checked = false;">Aceptar</button>
+          <button class="dismiss" onclick="document.getElementById('openSidebarMenu').checked = false;" data-i18n="accept">Aceptar</button>
         </div>
         <div class='logos'>
           <a href='http://geomatico.es' target='_blank'><img class='logo' src='img/logo.svg'></a>

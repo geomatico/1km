@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import es from './es.json';
 import ca from './ca.json';
 import en from './en.json';
+import ga from './ga.json';
 
 i18n.use(LanguageDetector)
     .init({
