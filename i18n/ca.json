@@ -1,11 +1,13 @@
 {
-    "accept": "Acceptar",
-    "desc1": "Fes clic sobre el mapa i visualitza fins on pots caminar durant la fase 0 de desconfinament per la crisi del COVID-19. També podràs veure els límits municipals quan vagis a fer esport.",
-    "desc2": "L'aplicació 1km ha estat desenvolupada per Geomatico. Cartografia i cercador gentilesa de Mapbox.",
-    "desc3": "No explotem la teva informació personal, la teva posició no es transmet en cap cas. Només fem servir galetes tècniques. És codi lliure.",
+    "accept": "Accepta",
+    "desc1": "Fes clic sobre el mapa i visualitza fins on pots caminar durant la fase 0 de desconfinament per la crisi del COVID-19. També podras veure els límits municipals quan vagis a fer esport.",
+    "desc2": "L'aplicació 1km ha estat desenvolupada per <a href='http://geomatico.es' target='_blank'>geomatico</a>. Cartografia i cercador gentilesa de <a href='https://mapbox.com' target='_blank'>Mapbox</a>.",
+    "desc3": "No apleguem la teva informació personal, ni la teva posició. Només fem servir galetes tècniques. 1km és <a href='https://github.com/geomatico/1km' target='_blank'>codi lliure</a>.",
     "cookies": "política de cookies",
-    "private": "política de privacitat",
-    "search": "Cerca casa teva ...",
-    "subtitle": "Clica al mapa sobre casa teva"
-
+    "private": "política de privadesa",
+    "search": "Cerca casa teva...",
+    "title": "Quant és 1km?",
+    "subtitle": "Clica al mapa sobre casa teva",
+    "municipality": "Municipi",
+    "province": "Província"
 }

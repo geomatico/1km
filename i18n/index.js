@@ -23,9 +23,12 @@ i18n.use(LanguageDetector)
             en: {
                 translation: en
             },
+            ga: {
+                translation: ga
+            },
         },
         load: 'languageOnly',
-        whitelist: ['es', 'ca', 'en'],
+        whitelist: ['es', 'ca', 'en', 'ga'],
         fallbackLng: 'es',
         debug: false,
         keySeparator: false,
