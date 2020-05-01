@@ -14,6 +14,9 @@ Basado en Mapbox GL JS y Turf.
 
 ### 30 Abril 2020
 
-* Hemos incorporado la capa de municipios del IGN [BDLJE CC-BY 4.0 ign.es](http://www.ign.es/web/ign/portal).
-* Hemos incorporado la capa de provincias de [OpenStreetMap](https://www.openstreetmap.org/).
+* Hemos incorporado la capa de provincias y municipios de [OpenStreetMap](https://www.openstreetmap.org/).
 
+## Atribuciones
+
+* Icono provincias y buffer <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>
+* City Hall, Building, Architecture <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
