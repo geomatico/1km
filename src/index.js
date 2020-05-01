@@ -77,6 +77,11 @@ map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('load', function(e) {
 
+    map.addSource('src_provincias', {
+        type: 'vector',
+        url: 'mapbox://geomatico.bwg8ax6i'
+    });
+
     map.addSource('src_municipios', {
         type: 'vector',
         url: 'mapbox://geomatico.bkiobfd2'
@@ -107,7 +112,23 @@ map.on('load', function(e) {
         },
         'paint': {
             'line-color': '#444',
-            'line-width': 1,
+            'line-width': 0.5,
+            'line-opacity': 0.67
+        }
+    });
+
+    map.addLayer({
+        'id': 'boundary_provincias',
+        'type': 'line',
+        'source': 'src_provincias',
+        'source-layer': 'provincias_bcn200-6vywdj',
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#888888',
+            'line-width': 2.5,
             'line-opacity': 0.67
         }
     });
