@@ -1,3 +1,10 @@
 {
-    "accept": "Accept"
+    "accept": "Accept",
+    "desc1": "Click on the map and see how far you can go during phase 0 of the de-confinement due to the COVID-19 crisis. You will also be able to see the municipal limits when you do sports.",
+    "desc2": "The 1km application has been developed by geomatico. Cartography and search courtesy of Mapbox.",
+    "desc3": "We do not use your personal information, your position is not collected in any case. We only use technical cookies. Code is open source.",
+    "cookies": "cookies policy",
+    "private": "privacy policy",
+    "search": "Search your home ...",
+    "subtitle": "Click on the map over home"
 }

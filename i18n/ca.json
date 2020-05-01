@@ -1,3 +1,11 @@
 {
-    "accept": "Acceptar"
+    "accept": "Acceptar",
+    "desc1": "Fes clic sobre el mapa i visualitza fins on pots caminar durant la fase 0 de desconfinament per la crisi del COVID-19. També podràs veure els límits municipals quan vagis a fer esport.",
+    "desc2": "L'aplicació 1km ha estat desenvolupada per Geomatico. Cartografia i cercador gentilesa de Mapbox.",
+    "desc3": "No explotem la teva informació personal, la teva posició no es transmet en cap cas. Només fem servir galetes tècniques. És codi lliure.",
+    "cookies": "política de cookies",
+    "private": "política de privacitat",
+    "search": "Cerca casa teva ...",
+    "subtitle": "Clica al mapa sobre casa teva"
+
 }

@@ -1,3 +1,11 @@
 {
-    "accept": "Aceptar"
+    "accept": "Aceptar",
+    "desc1": "Haz clic sobre el mapa y visualiza hasta dónde puedes andar durante la fase 0 de desconfinamiento por la crisis del COVID-19. También podrás ver los límites municipales cuando vayas a hacer deporte.",
+    "desc2": "La aplicación 1km ha sido desarrollada por Geomatico. Cartografía y buscador gentileza de Mapbox.",
+    "desc3": "No explotamos tu información personal, tu posición no se transmite en ningún caso. Sólo usamos cookies técnicas. Es código libre.",
+    "cookies": "política de cookies",
+    "private": "política de privacidad",
+    "search": "Busca tu casa ...",
+    "subtitle": "Clica en el mapa sobre tu casa"
+
 }

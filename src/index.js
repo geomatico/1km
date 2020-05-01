@@ -7,7 +7,13 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import mun_bbox from './mun_bbox';
 
-console.log(i18n.t('accept'))
+console.log(i18n.getDataByLanguage(i18n.language).translation);
+
+/*const literals = i18n.getDataByLanguage(i18n.language).translation;
+for (let i in literals) {
+  console.log(document.querySelector("[data-i18n='" + i + "']"));
+  document.querySelector("[data-i18n='" + i + "']").innerHtml = literals[i];
+}*/
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
@@ -122,7 +128,7 @@ map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
-        placeholder: 'Busca tu casa...',
+        placeholder: i18n.t('search'),
         zoom: 17,
         marker: false,
         language: 'es-ES',
