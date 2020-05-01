@@ -13,8 +13,7 @@ var map = new mapboxgl.Map({
     //style: 'img/osm-bright-icgc-cloudfront.json',
     center: [-3.69, 40.41],
     zoom: 6,
-    bearing: 0,
-    attributionControl: false
+    bearing: 0
 });
 
 const geolocationControl = new mapboxgl.GeolocateControl({
@@ -47,7 +46,7 @@ const showMunicipality = function(e) {
         { layers: ['fill_municipios'] });
     if (municipalities.length === 1) {
         const municipality = municipalities[0]
-        map.setFilter('selected_municipality', ['==', 'NAMEUNIT', municipality.properties.NAMEUNIT])
+        map.setFilter('selected_municipality', ['==', 'ine:municipio', municipality.properties['ine:municipio']])
     }
 }
 
@@ -76,30 +75,18 @@ map.addControl(
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
-const attributionControl = new mapboxgl.AttributionControl({
-    compact: false,
-    customAttribution: 'BDLJE CC-BY 4.0 <a href="https://www.ign.es">ign.es</a>'
-})
-
-map.addControl(attributionControl)
-
 map.on('load', function(e) {
 
-    map.addSource('src_provincias', {
+    map.addSource('src_limites_adm', {
         type: 'vector',
-        url: 'mapbox://geomatico.bwg8ax6i'
-    });
-
-    map.addSource('src_municipios', {
-        type: 'vector',
-        url: 'mapbox://geomatico.bkiobfd2'
+        url: 'mapbox://geomatico.54v7p84m'
     });
 
     map.addLayer({
         'id': 'fill_municipios',
         'type': 'fill',
-        'source': 'src_municipios',
-        'source-layer': 'municipios-4nse5n',
+        'source': 'src_limites_adm',
+        'source-layer': 'municipios_osm',
         'layout': {
         },
         'paint': {
@@ -112,8 +99,8 @@ map.on('load', function(e) {
     map.addLayer({
         'id': 'boundary_municipios',
         'type': 'line',
-        'source': 'src_municipios',
-        'source-layer': 'municipios-4nse5n',
+        'source': 'src_limites_adm',
+        'source-layer': 'municipios_osm',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'
@@ -135,8 +122,8 @@ map.on('load', function(e) {
     map.addLayer({
         'id': 'boundary_provincias',
         'type': 'line',
-        'source': 'src_provincias',
-        'source-layer': 'provincias_bcn200-6vywdj',
+        'source': 'src_limites_adm',
+        'source-layer': 'provincias_osm',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'
@@ -163,8 +150,8 @@ map.on('load', function(e) {
     map.addLayer({
         'id': 'selected_municipality',
         'type': 'line',
-        'source': 'src_municipios',
-        'source-layer': 'municipios-4nse5n',
+        'source': 'src_limites_adm',
+        'source-layer': 'municipios_osm',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'
@@ -174,7 +161,7 @@ map.on('load', function(e) {
             'line-width': 4,
             'line-opacity': 0.67
         },
-        'filter': ['==', 'NAMEUNIT', '']
+        'filter': ['==', 'ine:municipio', '']
     }, 'building-number-label');
 
     map.addSource('buffer', {
