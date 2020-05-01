@@ -4,6 +4,7 @@ import turfCircle from '@turf/circle';
 import {point as turfPoint} from '@turf/helpers'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import mun_bbox from './mun_bbox';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
@@ -23,7 +24,10 @@ const geolocationControl = new mapboxgl.GeolocateControl({
     showUserLocation: false
 })
 
-const createBuffer = function(e) {
+let buffer_bounds = undefined;
+let current_municipality = undefined;
+
+const createBuffer = function (e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
     const radius = 1;
     const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
@@ -36,28 +40,79 @@ const createBuffer = function(e) {
         return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds());
 
+    buffer_bounds = bounds;
+
     map.fitBounds(bounds, {padding: 25}, {lngLat: e.lngLat});
 }
 
-const showMunicipality = function(e) {
-    const point = map.project(e.lngLat);
+const showMunicipality = function (lngLat) {
+    const point = map.project(lngLat);
     const municipalities = map.queryRenderedFeatures(
         point,
-        { layers: ['fill_municipios'] });
+        {layers: ['fill_municipios']});
     if (municipalities.length === 1) {
-        const municipality = municipalities[0]
-        map.setFilter('selected_municipality', ['==', 'ine:municipio', municipality.properties['ine:municipio']])
+        current_municipality = municipalities[0].properties['ine:municipio'];
+        map.setFilter('selected_municipality', ['==', 'ine:municipio', current_municipality])
     }
 }
 
 map.on('zoomend', e => {
     if (e.hasOwnProperty('lngLat')) {
-        showMunicipality(e)
+        map.once('idle', e2 => {
+            showMunicipality(e.lngLat)
+            showButtons()
+        })
     }
 });
 
-map.on('drag', function(e) {
+const zoomTo = function (type) {
+    switch (type) {
+        case 'km':
+            if(buffer_bounds) {
+                map.fitBounds(buffer_bounds, {padding: 25});
+                setActiveButton(type);
+            }
+            break;
+        case 'municipio':
+            if (current_municipality) {
+                const mun = mun_bbox.filter(mun => mun['ine'] === current_municipality)[0];
+                const bounds = new mapboxgl.LngLatBounds(mun.bounds);
+                map.fitBounds(bounds, {padding: 25});
+                setActiveButton(type);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+var listItems = document.querySelectorAll('.mdc-bottom-navigation__list-item');
+for (var i = 0, list; list = listItems[i]; i++) {
+    list.addEventListener('click', function (event) {
+        zoomTo(event.target.dataset.id);
+    });
+}
+
+const showButtons = function() {
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.style.opacity = '1');
+}
+
+const hideButtons = function() {
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.style.opacity = '0');
+}
+
+const setActiveButton = function(type) {
+    var activatedClass = 'mdc-bottom-navigation__list-item--activated';
+    [...document.querySelectorAll('.mdc-bottom-navigation__list-item')].map(el => el.classList.remove(activatedClass));
+    if(type) {
+        var el = document.querySelector('span[data-id="'+type+'"]');
+        el.classList.add(activatedClass);
+    }
+}
+
+map.on('drag', function (e) {
     document.getElementById('openSidebarMenu').checked = false;
+    setActiveButton(undefined);
 });
 
 map.addControl(
@@ -75,7 +130,7 @@ map.addControl(
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
-map.on('load', function(e) {
+map.on('load', function (e) {
 
     map.addSource('src_limites_adm', {
         type: 'vector',
@@ -87,8 +142,7 @@ map.on('load', function(e) {
         'type': 'fill',
         'source': 'src_limites_adm',
         'source-layer': 'municipios_osm',
-        'layout': {
-        },
+        'layout': {},
         'paint': {
             'fill-outline-color': '#444',
             'fill-color': '#888',
@@ -203,13 +257,15 @@ map.on('load', function(e) {
 
     map.on('click', function f(e) {
         document.getElementById('openSidebarMenu').checked = false;
-        createBuffer(e)
-        showMunicipality(e)
+        hideButtons();
+        current_municipality = undefined;
+        createBuffer(e);
+        setActiveButton("km");
     });
 
     map.addControl(geolocationControl);
 
-    geolocationControl.on('geolocate', function(position) {
+    geolocationControl.on('geolocate', function (position) {
         document.getElementById('openSidebarMenu').checked = false;
         createBuffer({
             lngLat: {
