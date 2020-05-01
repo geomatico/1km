@@ -98,6 +98,20 @@
             cursor: pointer;
             border-bottom: 1px solid rgba(255, 255, 255, 0.10);
         }
+        .header li{
+            list-style: none;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 10px 20px 11px 55px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        }
+        .header li span {
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.50);
+        }
         .sidebarMenuInner li span{
             display: block;
             font-size: 14px;
@@ -233,10 +247,20 @@
         .desc a {
             color:#fff;
         }
+        .logo-header {
+            height: 40px;
+            float: right;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="header"></div>
+    <div class="header">
+        <img class='logo-header' src='img/markers.svg'>
+        <ul class="sidebarMenuInner">
+            <li>¿Cuánto es 1km?<span>Clica en el mapa sobre tu casa</span></a></li>
+        </ul>
+    </div>
     <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" checked>
     <label for="openSidebarMenu" class="sidebarIconToggle">
         <div class="spinner diagonal part-1"></div>
@@ -244,9 +268,6 @@
         <div class="spinner diagonal part-2"></div>
     </label>
     <div id="sidebarMenu">
-        <ul class="sidebarMenuInner">
-            <li>¿Cuánto es 1km?<span>Clica en el mapa sobre tu casa</span></a></li>
-        </ul>
         <div class="desc">Haz clic sobre el mapa y visualiza hasta dónde puedes andar
             durante la fase 0 de desconfinamiento por la crisis del COVID-19. 
             También podrás ver los <b>límites municipales</b> cuando vayas a hacer deporte.
@@ -278,5 +299,5 @@
         gtag('js', new Date());
         gtag('config', 'UA-164546189-1');
     </script>
-<script src="main.85718b5140841f49e077.js"></script></body>
+<script src="main.290b6d8b2e2c58f9da88.js"></script></body>
 </html>
