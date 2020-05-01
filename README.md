@@ -9,3 +9,11 @@ Basado en Mapbox GL JS y Turf.
 * Instalar dependencias: `npm install`.
 * Ejecutar servidor local: `npm start`.
 * Desplegar: `npm run gh-pages`.
+
+## Actualizaciones
+
+### 30 Abril 2020
+
+* Hemos incorporado la capa de municipios del IGN [BDLJE CC-BY 4.0 ign.es](http://www.ign.es/web/ign/portal).
+* Hemos incorporado la capa de provincias de [OpenStreetMap](https://www.openstreetmap.org/).
+
