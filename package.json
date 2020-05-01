@@ -37,6 +37,8 @@
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@mapbox/spritezero": "^6.2.0",
     "@turf/circle": "^6.0.1",
+    "i18next": "^19.4.4",
+    "i18next-browser-languagedetector": "^4.1.1",
     "mapbox-gl": "^1.9.1",
     "proj4": "^2.6.1"
   }

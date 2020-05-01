@@ -1,0 +1,13 @@
+{
+    "accept": "Aceptar",
+    "desc1": "Haz clic sobre el mapa y visualiza hasta dónde puedes andar durante la fase 0 de desconfinamiento por la crisis del COVID-19. También podrás ver los <b>límites municipales</b> cuando vayas a hacer deporte.",
+    "desc2": "La aplicación 1km ha sido desarrollada por <a href='http://geomatico.es' target='_blank'>geomatico</a>. Cartografía y buscador gentileza de <a href='https://mapbox.com' target='_blank'>Mapbox</a>.",
+    "desc3": "No recopilamos tu información personal, ni tu posición. Sólo usamos cookies técnicas. 1km es <a href='https://github.com/geomatico/1km' target='_blank'>código libre</a>.",
+    "cookies": "política de cookies",
+    "private": "política de privacidad",
+    "search": "Busca tu casa...",
+    "title": "¿Cuánto es 1km?",
+    "subtitle": "Clica en el mapa sobre tu casa",
+    "municipality": "Municipio",
+    "province": "Provincia"
+}
