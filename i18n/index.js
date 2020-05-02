@@ -4,7 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import es from './es.json';
 import ca from './ca.json';
 import en from './en.json';
-import ga from './ga.json';
+import gl from './gl.json';
 
 i18n.use(LanguageDetector)
     .init({
@@ -23,12 +23,12 @@ i18n.use(LanguageDetector)
             en: {
                 translation: en
             },
-            ga: {
-                translation: ga
+            gl: {
+                translation: gl
             },
         },
         load: 'languageOnly',
-        whitelist: ['es', 'ca', 'en', 'ga'],
+        whitelist: ['es', 'ca', 'en', 'gl'],
         fallbackLng: 'es',
         debug: false,
         keySeparator: false,
