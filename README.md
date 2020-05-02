@@ -16,6 +16,21 @@ Basado en Mapbox GL JS y Turf.
 
 * Hemos incorporado la capa de provincias y municipios de [OpenStreetMap](https://www.openstreetmap.org/).
 
+### 1 Mayo 2020
+
+* Hemos incorporado una botonera para poder hacer zoom a tu límite municipal basado en el punto que hayas marcado en el mapa.
+
+### 2 Mayo 2020
+
+* Hemos incorporado los siguientes idiomas:
+    + es
+    + en
+    + gl
+    + ca
+    
+Si quieres la app en tu idioma puedes mandarnos un PR!    
+   
+
 ## Atribuciones
 
 * Icono provincias y buffer <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>
