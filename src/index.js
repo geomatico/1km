@@ -1,4 +1,3 @@
-import i18n from '../i18n';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import turfCircle from '@turf/circle';
@@ -7,15 +6,6 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import mun_bbox from './mun_bbox';
 
-const literals = i18n.getDataByLanguage(i18n.language).translation;
-for (let i in literals) {
-    [...document.querySelectorAll("[data-i18n='" + i + "']")].map(el => {
-        if (el && el.innerHTML) {
-            el.innerHTML = literals[i];
-        }
-    });
-}
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
 var map = new mapboxgl.Map({
     container: 'map',
@@ -23,7 +13,7 @@ var map = new mapboxgl.Map({
     //style: 'https://geoserveis.icgc.cat/contextmaps/osm-bright.json',
     //style: 'img/osm-bright-icgc-cloudfront.json',
     center: [-3.69, 40.41],
-    zoom: 5,
+    zoom: 6,
     bearing: 0
 });
 
@@ -87,7 +77,7 @@ const zoomTo = function (type) {
             if (current_municipality) {
                 const mun = mun_bbox.filter(mun => mun['ine'] === current_municipality)[0];
                 const bounds = new mapboxgl.LngLatBounds(mun.bounds);
-                map.fitBounds(bounds, {padding: 60});
+                map.fitBounds(bounds, {padding: 25});
                 setActiveButton(type);
             }
             break;
@@ -129,10 +119,10 @@ map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
-        placeholder: i18n.t('search'),
+        placeholder: 'Busca tu casa...',
         zoom: 17,
         marker: false,
-        language: i18n.language,
+        language: 'es-ES',
         countries: 'es',
         minLength: 3
     })
@@ -141,14 +131,6 @@ map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.ScaleControl({position: 'bottom-right'}));
 
 map.on('load', function (e) {
-
-    // Use international map
-    const labelList = map.getStyle().layers.filter(layer => {
-        return /-label/.test(layer.id);
-    });
-    for (let labelLayer of labelList) {
-        map.setLayoutProperty(labelLayer.id, 'text-field', ['coalesce', ['get', 'name_int'], ['get', 'name']]);
-    }
 
     map.addSource('src_limites_adm', {
         type: 'vector',
