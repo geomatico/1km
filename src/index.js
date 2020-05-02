@@ -7,13 +7,17 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import mun_bbox from './mun_bbox';
 
-const literals = i18n.getDataByLanguage(i18n.language).translation;
-for (let i in literals) {
-    [...document.querySelectorAll("[data-i18n='" + i + "']")].map(el => {
-        if (el && el.innerHTML) {
-            el.innerHTML = literals[i];
-        }
-    });
+const lang = i18n.languages[0];
+
+const i18nBundle = i18n.getDataByLanguage(lang);
+if(i18nBundle) {
+    for (let i in i18nBundle.translation) {
+        [...document.querySelectorAll("[data-i18n='" + i + "']")].map(el => {
+            if (el && el.innerHTML) {
+                el.innerHTML = i18nBundle.translation[i];
+            }
+        });
+    }
 }
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWF0aWNvIiwiYSI6ImNrOWVwbDZkNjAzeXEzbWp3OGtscmI2N2sifQ.qed5igebU5jj0xOeiWtHYQ'
@@ -132,7 +136,7 @@ map.addControl(
         placeholder: i18n.t('search'),
         zoom: 17,
         marker: false,
-        language: i18n.language,
+        language: lang,
         countries: 'es',
         minLength: 3
     })
