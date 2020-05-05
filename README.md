@@ -27,6 +27,7 @@ Basado en Mapbox GL JS y Turf.
     + en
     + gl
     + ca
+    + eu
     
 Si quieres la app en tu idioma puedes mandarnos un PR!    
    

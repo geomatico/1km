@@ -5,6 +5,7 @@ import es from './es.json';
 import ca from './ca.json';
 import en from './en.json';
 import gl from './gl.json';
+import eu from './eu.json';
 
 i18n.use(LanguageDetector)
     .init({
@@ -26,9 +27,12 @@ i18n.use(LanguageDetector)
             gl: {
                 translation: gl
             },
+            eu: {
+                translation: eu
+            }
         },
         load: 'languageOnly',
-        whitelist: ['es', 'ca', 'en', 'gl'],
+        whitelist: ['es', 'ca', 'en', 'gl', 'eu'],
         fallbackLng: 'es',
         debug: false,
         keySeparator: false,
