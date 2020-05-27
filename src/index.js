@@ -43,7 +43,11 @@ let current_municipality = undefined;
 
 const createBuffer = function (e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
-    const radius = 1;
+    let radius = 1;
+    const params = new URLSearchParams(window.location.search);
+    if (params && params.has('radius') && ! isNaN(parseFloat(params.get('radius')))){
+        radius = parseFloat(params.get('radius'))
+    }
     const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
     const circle = turfCircle(center, radius, options);
 
