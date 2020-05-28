@@ -8,6 +8,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import mun_bbox from './mun_bbox';
 
 const lang = i18n.languages[0];
+const DEFAULT_RADIUS = 1;
 
 const i18nBundle = i18n.getDataByLanguage(lang);
 if(i18nBundle) {
@@ -43,7 +44,12 @@ let current_municipality = undefined;
 
 const createBuffer = function (e) {
     const center = turfPoint([e.lngLat.lng, e.lngLat.lat]);
-    const radius = 1;
+    let radius = DEFAULT_RADIUS;
+    const params = new URLSearchParams(window.location.search);
+    if (params && params.has('radius') && ! isNaN(parseFloat(params.get('radius')))){
+        const radiusCandidate = parseFloat(params.get('radius'));
+        radius = radiusCandidate > 0 && radiusCandidate < 1000 ? radiusCandidate : DEFAULT_RADIUS;
+    }
     const options = {steps: 100, units: 'kilometers', properties: {foo: 'bar'}};
     const circle = turfCircle(center, radius, options);
 
